@@ -526,7 +526,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
                 .flip-front { background:#fef8e0; flex-direction:column; gap:6px; }
                 .flip-back  { background:#fff; transform:rotateY(180deg); flex-direction:column; justify-content:space-between; padding:14px 10px; }
               </style>
-              <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card" onclick="this.classList.toggle('flipped');playFlipSound()">
                 <div class="flip-inner">
                   <div class="flip-front"><span style="font-size:36px;">🎲</span><span style="font-size:15px;color:#a09060;font-weight:600;">터치!</span></div>
                   <div class="flip-back">
@@ -536,7 +536,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
                   </div>
                 </div>
               </div>
-              <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card" onclick="this.classList.toggle('flipped');playFlipSound()">
                 <div class="flip-inner">
                   <div class="flip-front"><span style="font-size:36px;">🎲</span><span style="font-size:15px;color:#a09060;font-weight:600;">터치!</span></div>
                   <div class="flip-back">
@@ -546,7 +546,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
                   </div>
                 </div>
               </div>
-              <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card" onclick="this.classList.toggle('flipped');playFlipSound()">
                 <div class="flip-inner">
                   <div class="flip-front"><span style="font-size:36px;">🎲</span><span style="font-size:15px;color:#a09060;font-weight:600;">터치!</span></div>
                   <div class="flip-back">
@@ -556,7 +556,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
                   </div>
                 </div>
               </div>
-              <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card" onclick="this.classList.toggle('flipped');playFlipSound()">
                 <div class="flip-inner">
                   <div class="flip-front"><span style="font-size:36px;">🎲</span><span style="font-size:15px;color:#a09060;font-weight:600;">터치!</span></div>
                   <div class="flip-back">
@@ -566,7 +566,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
                   </div>
                 </div>
               </div>
-              <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card" onclick="this.classList.toggle('flipped');playFlipSound()">
                 <div class="flip-inner">
                   <div class="flip-front"><span style="font-size:36px;">🎲</span><span style="font-size:15px;color:#a09060;font-weight:600;">터치!</span></div>
                   <div class="flip-back">
@@ -576,7 +576,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
                   </div>
                 </div>
               </div>
-              <div class="flip-card" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card" onclick="this.classList.toggle('flipped');playFlipSound()">
                 <div class="flip-inner">
                   <div class="flip-front"><span style="font-size:36px;">🎲</span><span style="font-size:15px;color:#a09060;font-weight:600;">터치!</span></div>
                   <div class="flip-back">
@@ -633,6 +633,17 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
 
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 카드 확대 팝업 -->
+    <div id="cardZoomBg" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;"
+      onclick="closeCardZoom()">
+      <div id="cardZoomBox" style="background:#fff;border-radius:28px;border:4px solid #f5c842;padding:40px 48px;display:flex;flex-direction:column;align-items:center;gap:20px;min-width:280px;max-width:420px;box-shadow:0 8px 40px rgba(0,0,0,0.4);">
+        <div id="czName" style="font-size:32px;font-weight:700;color:#3a2800;text-align:center;"></div>
+        <div id="czIcon" style="font-size:100px;line-height:1;text-align:center;"></div>
+        <div id="czDesc" style="font-size:22px;color:#7a6000;text-align:center;line-height:1.7;white-space:pre-line;"></div>
+        <button onclick="closeCardZoom()" style="margin-top:8px;background:#f5c842;border:none;border-radius:12px;padding:12px 36px;font-size:18px;font-weight:700;color:#3a2800;cursor:pointer;font-family:inherit;">✔ 확인</button>
       </div>
     </div>
 
@@ -1182,20 +1193,91 @@ function assignMaterials() {
         </div>
         <div class="flip-back" style="position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;border:2.5px solid #f0d878;background:#fff;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 12px;box-sizing:border-box;">
           <span style="font-size:19px;font-weight:700;color:#3a2800;text-align:center;">${m.name}</span>
-          <span style="font-size:52px;">${m.icon === 'choco' ? '🍫' : m.icon}</span>
+          <span style="font-size:52px;">${m.icon === 'choco' ? chocoSVG() : m.icon}</span>
           <span style="font-size:14px;color:#7a6000;text-align:center;line-height:1.6;white-space:pre-line;">${m.desc}</span>
         </div>
       </div>`;
     cell.addEventListener('click', function() {
       const inner = this.querySelector('.flip-inner');
       const isFlipped = inner.style.transform === 'rotateY(180deg)';
-      inner.style.transform = isFlipped ? '' : 'rotateY(180deg)';
+      if (!isFlipped) {
+        inner.style.transform = 'rotateY(180deg)';
+        playFlipSound();
+        // 뒤집기 애니메이션 후 확대 팝업
+        setTimeout(() => openCardZoom(m), 520);
+      } else {
+        openCardZoom(m);
+      }
     });
     popup.appendChild(cell);
   });
 
   const bg = document.getElementById('matPopupBg');
   bg.style.display = 'flex';
+}
+
+function playFlipSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const sr = ctx.sampleRate;
+    const dur = 0.6;
+    const buf = ctx.createBuffer(1, sr * dur, sr);
+    const data = buf.getChannelData(0);
+
+    // 짜잔! = 상승하는 아르페지오 음 3개 + 마지막 반짝이는 고음
+    const notes = [
+      { freq: 523, start: 0.00, len: 0.15, amp: 0.35 },   // C5
+      { freq: 659, start: 0.10, len: 0.15, amp: 0.35 },   // E5
+      { freq: 784, start: 0.20, len: 0.15, amp: 0.35 },   // G5
+      { freq: 1047, start: 0.30, len: 0.30, amp: 0.45 },  // C6 — 반짝
+    ];
+
+    for (let i = 0; i < data.length; i++) {
+      const t = i / sr;
+      let v = 0;
+      notes.forEach(n => {
+        if (t >= n.start && t < n.start + n.len) {
+          const lt = t - n.start;
+          const env = Math.exp(-lt * 8);
+          v += Math.sin(2 * Math.PI * n.freq * lt) * env * n.amp;
+          // 배음 추가로 반짝이는 느낌
+          v += Math.sin(2 * Math.PI * n.freq * 2 * lt) * env * n.amp * 0.3;
+        }
+      });
+      // 마지막에 반짝이는 노이즈 스파클
+      if (t >= 0.30 && t < 0.45) {
+        const lt = t - 0.30;
+        v += (Math.random() * 2 - 1) * Math.exp(-lt * 20) * 0.08;
+      }
+      data[i] = v;
+    }
+
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(1, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + dur);
+    src.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch(e) {}
+}
+
+function openCardZoom(m) {
+  document.getElementById('czName').textContent = m.name;
+  const iconEl = document.getElementById('czIcon');
+  if (m.icon === 'choco') {
+    iconEl.innerHTML = '<div style="transform:scale(1.6);transform-origin:center;margin:0;">' + chocoSVG() + '</div>';
+  } else {
+    iconEl.textContent = m.icon;
+    iconEl.style.fontSize = '100px';
+  }
+  document.getElementById('czDesc').textContent = m.desc;
+  document.getElementById('cardZoomBg').style.display = 'flex';
+}
+
+function closeCardZoom() {
+  document.getElementById('cardZoomBg').style.display = 'none';
 }
 
 function closeMatPopup() {
