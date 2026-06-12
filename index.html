@@ -175,6 +175,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
 .qopt { display:flex; align-items:center; gap:8px; padding:9px 12px; background:#fff; border:1.5px solid #d2c4f5; border-radius:9px; font-size:12px; color:#3a1e8a; cursor:pointer; transition:background .15s; }
 .qopt:hover { background:#ede8ff; }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 <div class="outer">
@@ -330,12 +331,6 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
       <!-- 흰 컨텐츠 카드 -->
       <div style="background:#fff;border-radius:24px 24px 0 0;margin-top:-10px;flex:1;overflow-y:auto;padding:28px 36px;display:flex;flex-direction:column;gap:20px;">
 
-        <!-- 상단 안내 박스 -->
-        <div style="background:#e8f0e4;border-radius:14px;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-shrink:0;">
-          <span style="font-size:32px;flex-shrink:0;">💉</span>
-          <span style="font-size:18px;color:#2a4020;line-height:1.75;flex:1;font-weight:500;">주사기의 피스톤을 밀고 당기며 변화를 관찰하고 <strong>실험관찰 34쪽</strong>에 기록해봐요! 🎈</span>
-        </div>
-
         <!-- 본문: 왼쪽 퀴즈 + 오른쪽 실험방법·안내 -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1;min-height:0;">
 
@@ -352,11 +347,11 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
             </div>
 
             <!-- 주사기 애니메이션 -->
-            <div style="display:flex;justify-content:center;align-items:flex-end;gap:32px;padding:10px 0;flex:1;">
+            <div style="display:flex;justify-content:center;align-items:center;gap:48px;padding:20px 0;flex:1;">
               <!-- 피스톤 안 밀기 전 -->
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-                <span style="font-size:11px;color:#7a6000;font-weight:600;">밀기 전</span>
-                <svg width="70" height="140" viewBox="0 0 70 140">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+                <span style="font-size:13px;color:#7a6000;font-weight:600;">밀기 전</span>
+                <svg width="110" height="220" viewBox="0 0 70 140">
                   <!-- 주사기 몸통 -->
                   <rect x="15" y="10" width="40" height="100" rx="6" fill="#d8eaf8" stroke="#8ab0d0" stroke-width="2"/>
                   <!-- 눈금선 -->
@@ -378,33 +373,37 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
               </div>
 
               <!-- 화살표 -->
-              <div style="font-size:28px;color:#e07a28;margin-bottom:40px;">→</div>
+              <div style="font-size:36px;color:#e07a28;">→</div>
 
               <!-- 피스톤 민 후 (애니메이션) -->
               <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-                <span style="font-size:11px;color:#7a6000;font-weight:600;">피스톤을 밀면?</span>
-                <svg width="70" height="140" viewBox="0 0 70 140" id="syringe-anim">
+                <span style="font-size:13px;color:#7a6000;font-weight:600;">피스톤을 밀면?</span>
+                <svg width="110" height="220" viewBox="0 0 70 140" id="syringe-anim">
                   <!-- 주사기 몸통 -->
                   <rect x="15" y="10" width="40" height="100" rx="6" fill="#d8eaf8" stroke="#8ab0d0" stroke-width="2"/>
                   <!-- 눈금선 -->
                   <line x1="20" y1="40" x2="30" y2="40" stroke="#8ab0d0" stroke-width="1.5"/>
                   <line x1="20" y1="60" x2="30" y2="60" stroke="#8ab0d0" stroke-width="1.5"/>
                   <line x1="20" y1="80" x2="30" y2="80" stroke="#8ab0d0" stroke-width="1.5"/>
-                  <!-- 피스톤 손잡이 (내려옴) -->
+                  <!-- 피스톤 손잡이: 위→아래로 많이 내려옴 -->
                   <rect x="10" y="6" width="50" height="10" rx="3" fill="#b0c8e0" stroke="#8ab0d0" stroke-width="1.5">
-                    <animate attributeName="y" values="6;46;6" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="y" values="6;62;6" dur="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
                   </rect>
-                  <!-- 피스톤 막대 -->
+                  <!-- 피스톤 막대: 손잡이 따라 내려오며 짧아짐 -->
                   <rect x="31" y="16" width="8" height="40" fill="#c0d8f0" stroke="#8ab0d0" stroke-width="1">
-                    <animate attributeName="y" values="16;56;16" dur="2.5s" repeatCount="indefinite"/>
-                    <animate attributeName="height" values="40;4;40" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="y" values="16;72;16" dur="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                    <animate attributeName="height" values="40;2;40" dur="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
                   </rect>
-                  <!-- 피스톤 헤드 -->
+                  <!-- 피스톤 헤드: 깊숙이 내려옴 -->
                   <rect x="18" y="54" width="34" height="12" rx="3" fill="#90b8d8" stroke="#6898b8" stroke-width="1.5">
-                    <animate attributeName="y" values="54;58;54" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="y" values="54;74;54" dur="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
                   </rect>
-                  <!-- 물음표 (풍선 대신) -->
-                  <text x="35" y="95" text-anchor="middle" font-size="28" font-weight="700" fill="#e07a28">?</text>
+                  <!-- 물음표: 피스톤에 눌려 아래 좁은 공간에 위치, 작아짐 -->
+                  <text x="35" y="97" text-anchor="middle" font-weight="700" fill="#e07a28">
+                    <animate attributeName="font-size" values="22;10;22" dur="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                    <animate attributeName="y" values="97;100;97" dur="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+                    ?
+                  </text>
                   <!-- 주사기 끝 -->
                   <rect x="28" y="110" width="14" height="14" rx="2" fill="#b0c8e0" stroke="#8ab0d0" stroke-width="1.5"/>
                   <rect x="32" y="124" width="6" height="10" rx="2" fill="#4488bb"/>
@@ -443,16 +442,11 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
             <div style="background:#fff0f2;border:2.5px solid #e8b0b8;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px;text-align:center;">
               <div style="font-size:22px;font-weight:700;color:#c02040;">🚨 꼭 읽어주세요! 🚨</div>
               <div style="font-size:19px;color:#4a1020;line-height:1.85;text-align:left;">1. 주사기 끝은 꼭 막아야 해요!</div>
-              <div style="font-size:19px;color:#4a1020;line-height:1.85;text-align:left;">2. 풍선의 변화를 영상으로 찍어 모둠 패들렛에 올려주세요. 📹</div>
+              <div style="font-size:19px;color:#4a1020;line-height:1.85;text-align:left;">2. 주사기의 피스톤을 밀고 당기며 변화를 관찰하고 실험관찰 34쪽에 기록해봐요!</div>
             </div>
 
-            <!-- 버튼 2개 -->
+            <!-- 버튼 -->
             <div style="display:flex;flex-direction:column;gap:10px;margin-top:auto;">
-              <a href="https://padlet.com/bokdaees1/6-2onbn9hbfeezymbt" target="_blank"
-                 style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;background:#c02040;color:#fff;font-size:18px;font-weight:700;text-decoration:none;transition:opacity .15s;"
-                 onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-                📋 패들렛 입장하기 ↗
-              </a>
               <a href="https://gemini.google.com/share/e3760cbeaccf" target="_blank"
                  style="display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;background:#4a8a40;color:#fff;font-size:18px;font-weight:700;text-decoration:none;transition:opacity .15s;"
                  onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
@@ -628,6 +622,8 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
               <div style="font-size:17px;color:#4a1020;line-height:1.85;">3. 영상과 함께 재료가 어떻게 변했는지, 그리고 어떤 원리로 변화가 나타났는지 설명을 작성해 주세요.</div>
             </div>
 
+
+
             <!-- 패들렛 버튼 -->
             <a href="https://padlet.com/bokdaees1/6-2onbn9hbfeezymbt" target="_blank"
                style="display:flex;align-items:center;justify-content:center;gap:10px;padding:18px;border-radius:14px;background:#c02040;color:#fff;font-size:20px;font-weight:700;text-decoration:none;transition:opacity .15s;margin-top:auto;"
@@ -636,6 +632,20 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
             </a>
 
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 재료 카드 팝업 -->
+    <div id="matPopupBg" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;"
+      onclick="if(event.target===this)closeMatPopup()">
+      <div style="background:#fffbe6;border-radius:24px;width:100%;max-width:900px;max-height:92vh;overflow-y:auto;padding:32px;box-sizing:border-box;position:relative;border:3px solid #f5c842;">
+        <button onclick="closeMatPopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:26px;cursor:pointer;color:#6b7280;line-height:1;">&times;</button>
+        <div style="font-size:22px;font-weight:700;color:#3a2800;text-align:center;margin-bottom:6px;">🎲 모둠별 실험 재료</div>
+        <div style="font-size:15px;color:#a09060;text-align:center;margin-bottom:24px;">카드를 터치해서 모둠 재료를 확인해요! 👆</div>
+        <div id="matPopupGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;"></div>
+        <div style="display:flex;justify-content:center;margin-top:24px;">
+          <button onclick="closeMatPopup()" style="background:#f5c842;border:none;border-radius:12px;padding:12px 32px;font-size:17px;font-weight:700;color:#3a2800;cursor:pointer;font-family:inherit;">✔ 확인했어요!</button>
         </div>
       </div>
     </div>
@@ -666,7 +676,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
             <div style="font-size:17px;color:#2a4020;line-height:1.8;font-weight:500;">① 압력에 따라 기체의 부피가 달라지는 실생활 예를 한 가지 정해요.</div>
             <div style="font-size:17px;color:#2a4020;line-height:1.8;font-weight:500;">② 캔바 매직 캔버스를 활용하여 압력과 기체 부피의 관계가 드러나도록 <strong>&#39;원인-결과-되돌리기&#39;</strong>의 3컷 만화로 표현해요.</div>
             <div style="font-size:17px;color:#2a4020;line-height:1.8;font-weight:500;">③ 완성된 그림을 업로드한 뒤 <strong>&#39;3컷 완성 미리보기&#39;</strong> 버튼을 클릭해요.</div>
-            <div style="font-size:17px;color:#2a4020;line-height:1.8;font-weight:500;">④ 완성된 화면을 캡처하여 모둠 패들렛에 올려요.</div>
+            <div style="font-size:17px;color:#2a4020;line-height:1.8;font-weight:500;">④ 완성된 만화를 이미지로 저장하여 패들렛에 업로드해 주세요.</div>
           </div>
         </div>
 
@@ -848,10 +858,22 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
     </div>
   </div>
 
-  <div class="cbtn-row">
-    <button class="cbtn" onclick="cresetAll()">&#8635; 초기화</button>
-    <button class="cbtn cbtn-blue" onclick="cshowModal()">&#9654; 3컷 완성 미리보기</button>
-    <a class="cbtn cbtn-red" href="https://padlet.com/bokdaees1/6-2onbn9hbfeezymbt" target="_blank">📌 패들렛에 올리기</a>
+  <div style="display:flex;gap:8px;margin-top:12px;">
+    <button onclick="cresetAll()"
+      style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border-radius:14px;background:#f3f4f6;color:#333;border:1px solid #d1d5db;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;"
+      onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      ↺ 초기화
+    </button>
+    <button onclick="cshowModal()"
+      style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border-radius:14px;background:#1d4ed8;color:#fff;border:none;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;"
+      onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      ▶ 3컷 완성 미리보기
+    </button>
+    <a href="https://padlet.com/bokdaees1/6-2onbn9hbfeezymbt" target="_blank"
+      style="flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;background:#c02040;color:#fff;font-size:18px;font-weight:700;text-decoration:none;transition:opacity .15s;"
+      onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      📋 패들렛 입장하기 ↗
+    </a>
   </div>
 </div>
 
@@ -882,6 +904,11 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
           <p class="cmodal-cell-text" id="mpt2"></p>
         </div>
       </div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:20px;">
+      <button onclick="csaveImage()" style="display:flex;align-items:center;gap:8px;background:#4f46e5;color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        📥 이미지로 저장하기
+      </button>
     </div>
   </div>
 </div>
@@ -1018,6 +1045,22 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
     document.getElementById('cmodalBg').classList.add('on');
   };
 
+  window.csaveImage = function() {
+    var modal = document.getElementById('cmodal');
+    var btn = modal.querySelector('button[onclick="csaveImage()"]');
+    var closeBtn = modal.querySelector('.cmodal-close');
+    btn.style.display = 'none';
+    closeBtn.style.display = 'none';
+    html2canvas(modal, { backgroundColor: '#ffffff', scale: 2, useCORS: true }).then(function(canvas) {
+      var link = document.createElement('a');
+      link.download = '3컷만화.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      btn.style.display = '';
+      closeBtn.style.display = '';
+    });
+  };
+
   window.ccloseModal = function(e) {
     if (e.target === document.getElementById('cmodalBg')) {
       document.getElementById('cmodalBg').classList.remove('on');
@@ -1124,6 +1167,39 @@ function assignMaterials() {
   });
 
   document.getElementById('team-label').style.display = 'block';
+
+  // 팝업에 카드 복제해서 보여주기
+  const popup = document.getElementById('matPopupGrid');
+  popup.innerHTML = '';
+  shuffled.forEach(m => {
+    const cell = document.createElement('div');
+    cell.style.cssText = 'perspective:600px;cursor:pointer;height:220px;';
+    cell.innerHTML = `
+      <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.5s;transform-style:preserve-3d;">
+        <div class="flip-front" style="position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;border:2.5px solid #f0d878;background:#fef8e0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+          <span style="font-size:48px;">🎲</span>
+          <span style="font-size:16px;color:#a09060;font-weight:600;">터치!</span>
+        </div>
+        <div class="flip-back" style="position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;border:2.5px solid #f0d878;background:#fff;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 12px;box-sizing:border-box;">
+          <span style="font-size:19px;font-weight:700;color:#3a2800;text-align:center;">${m.name}</span>
+          <span style="font-size:52px;">${m.icon === 'choco' ? '🍫' : m.icon}</span>
+          <span style="font-size:14px;color:#7a6000;text-align:center;line-height:1.6;white-space:pre-line;">${m.desc}</span>
+        </div>
+      </div>`;
+    cell.addEventListener('click', function() {
+      const inner = this.querySelector('.flip-inner');
+      const isFlipped = inner.style.transform === 'rotateY(180deg)';
+      inner.style.transform = isFlipped ? '' : 'rotateY(180deg)';
+    });
+    popup.appendChild(cell);
+  });
+
+  const bg = document.getElementById('matPopupBg');
+  bg.style.display = 'flex';
+}
+
+function closeMatPopup() {
+  document.getElementById('matPopupBg').style.display = 'none';
 }
 
 function goPage(id) {
