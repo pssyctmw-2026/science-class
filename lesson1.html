@@ -201,6 +201,55 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
       </div>
     </div>
 
+    <!-- 교과서/실험관찰 쪽수 안내 (별도 칸) -->
+    <div style="background:#ddeeff;border-radius:14px;padding:10px 20px;display:flex;flex-direction:column;gap:4px;margin-top:8px;cursor:pointer;"
+      onclick="event.stopPropagation()">
+      <div onclick="document.getElementById('book-modal').style.display='flex'"
+        style="display:flex;align-items:center;gap:8px;font-size:17px;color:#1a3a5c;font-weight:600;padding:4px 0;border-radius:8px;transition:background .15s;"
+        onmouseover="this.style.background='rgba(0,80,160,0.08)'" onmouseout="this.style.background='transparent'">
+        <span>📘</span><span>교과서(보완) <strong>56~58쪽</strong></span>
+      </div>
+      <div onclick="document.getElementById('workbook-modal').style.display='flex'"
+        style="display:flex;align-items:center;gap:8px;font-size:17px;color:#1a3a5c;font-weight:600;padding:4px 0;border-radius:8px;transition:background .15s;"
+        onmouseover="this.style.background='rgba(0,80,160,0.08)'" onmouseout="this.style.background='transparent'">
+        <span>📒</span><span>실험관찰(보완) <strong>32~33쪽</strong></span>
+      </div>
+    </div>
+
+    <!-- 교과서 팝업 -->
+    <div id="book-modal" onclick="if(event.target===this)this.style.display='none'"
+      style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
+      <div style="background:#fff;border-radius:24px;width:100%;max-width:520px;padding:40px 44px;box-sizing:border-box;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;">
+        <button onclick="document.getElementById('book-modal').style.display='none'"
+          style="position:absolute;top:16px;right:18px;background:#f3f4f6;border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;color:#555;"
+          onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">✕</button>
+        <div style="font-size:40px;margin-bottom:14px;">📘</div>
+        <div style="font-size:15px;color:#6b7280;font-weight:600;margin-bottom:6px;">오늘 수업 관련 쪽수</div>
+        <div style="font-size:26px;font-weight:800;color:#1a3a5c;margin-bottom:6px;">교과서(보완)</div>
+        <div style="font-size:48px;font-weight:900;color:#1e40af;letter-spacing:2px;">56~58쪽</div>
+        <button onclick="document.getElementById('book-modal').style.display='none'"
+          style="margin-top:28px;background:#1e40af;color:#fff;border:none;border-radius:12px;padding:12px 40px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;"
+          onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">확인 ✓</button>
+      </div>
+    </div>
+
+    <!-- 실험관찰 팝업 -->
+    <div id="workbook-modal" onclick="if(event.target===this)this.style.display='none'"
+      style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
+      <div style="background:#fff;border-radius:24px;width:100%;max-width:520px;padding:40px 44px;box-sizing:border-box;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;">
+        <button onclick="document.getElementById('workbook-modal').style.display='none'"
+          style="position:absolute;top:16px;right:18px;background:#f3f4f6;border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;color:#555;"
+          onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">✕</button>
+        <div style="font-size:40px;margin-bottom:14px;">📒</div>
+        <div style="font-size:15px;color:#6b7280;font-weight:600;margin-bottom:6px;">오늘 수업 관련 쪽수</div>
+        <div style="font-size:26px;font-weight:800;color:#1a3a5c;margin-bottom:6px;">실험관찰(보완)</div>
+        <div style="font-size:48px;font-weight:900;color:#047857;letter-spacing:2px;">32~33쪽</div>
+        <button onclick="document.getElementById('workbook-modal').style.display='none'"
+          style="margin-top:28px;background:#047857;color:#fff;border:none;border-radius:12px;padding:12px 40px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;"
+          onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">확인 ✓</button>
+      </div>
+    </div>
+
     <!-- 배움 주제 팝업 -->
     <div id="goal-modal-bg" onclick="closeGoalModal(event)"
       style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;">
@@ -353,7 +402,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
           <div style="display:flex;flex-direction:column;gap:16px;">
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:5px;height:26px;background:#2d6a3a;border-radius:3px;"></div>
-              <span style="font-size:20px;font-weight:700;color:#1a3d20;">생각 열기 💭</span>
+              <span style="font-size:20px;font-weight:700;color:#1a3d20;">생각 열기 <span onclick="openAct1ThinkModal()" title="클릭하면 크게 볼 수 있어요" style="cursor:pointer;display:inline-block;transition:transform .15s;" onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'">💭</span></span>
             </div>
 
             <!-- 질문 박스 -->
@@ -445,7 +494,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
             <div style="display:flex;flex-direction:column;gap:12px;">
               <div style="display:flex;align-items:center;gap:10px;">
                 <div style="width:5px;height:26px;background:#2d6a3a;border-radius:3px;"></div>
-                <span style="font-size:20px;font-weight:700;color:#1a3d20;">실험 방법 🔬</span>
+                <span style="font-size:20px;font-weight:700;color:#1a3d20;">실험 방법 <span onclick="openAct1ExpModal()" title="클릭하면 크게 볼 수 있어요" style="cursor:pointer;display:inline-block;transition:transform .15s;" onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'">🔬</span></span>
               </div>
               <div style="background:#fff0d8;border-radius:14px;border:2px solid #e07a28;padding:18px 22px;display:flex;flex-direction:column;gap:10px;">
                 <div style="display:flex;gap:12px;align-items:flex-start;">
@@ -572,7 +621,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:5px;height:26px;background:#1a4a26;border-radius:3px;"></div>
-              <span style="font-size:20px;font-weight:700;color:#1a3d20;">생각 열기 💭</span>
+              <span style="font-size:20px;font-weight:700;color:#1a3d20;">생각 열기 <span onclick="openAct2ThinkModal()" title="클릭하면 크게 볼 수 있어요" style="cursor:pointer;display:inline-block;transition:transform .15s;" onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'">💭</span></span>
             </div>
             <div style="background:#fffbe6;border:2px solid #f5c842;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:14px;flex:1;">
               <div style="font-size:17px;font-weight:700;color:#3a2800;text-align:center;">물 위에 양초를 세워두고 삼각플라스크로 덮으면 어떤 일이 생길까요?</div>
@@ -666,7 +715,7 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:5px;height:26px;background:#1a4a26;border-radius:3px;"></div>
-              <span style="font-size:20px;font-weight:700;color:#1a3d20;">실험 방법 🔬</span>
+              <span style="font-size:20px;font-weight:700;color:#1a3d20;">실험 방법 <span onclick="openAct2ExpModal()" title="클릭하면 크게 볼 수 있어요" style="cursor:pointer;display:inline-block;transition:transform .15s;" onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'">🔬</span></span>
             </div>
             <div style="background:#e8f5e8;border-radius:14px;border:2px solid #4a9e50;padding:18px 22px;display:flex;flex-direction:column;gap:10px;">
               <div style="display:flex;gap:12px;align-items:flex-start;">
@@ -752,14 +801,82 @@ html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: 
       <!-- 흰 컨텐츠 카드 -->
       <div style="background:#fff;border-radius:24px 24px 0 0;margin-top:-10px;flex:1;overflow-y:auto;padding:28px 36px;display:flex;flex-direction:column;gap:20px;">
 
-        <!-- 상단 안내 박스 -->
+        <!-- 상단 안내 박스 (항상 보임) + 돋보기 클릭 시 팝업 -->
         <div style="background:#e8f0e4;border-radius:14px;padding:18px 24px;display:flex;align-items:flex-start;gap:16px;flex-shrink:0;">
-          <span style="font-size:32px;flex-shrink:0;margin-top:2px;">🔍</span>
+          <!-- 돋보기 아이콘: 클릭 시 팝업 -->
+          <button onclick="document.getElementById('act3-info-modal').style.display='flex'"
+            title="크게 보기"
+            style="font-size:32px;flex-shrink:0;margin-top:2px;background:none;border:none;cursor:pointer;padding:0;line-height:1;transition:transform .18s;border-radius:50%;"
+            onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🔍</button>
           <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
-          <div style="font-size:17px;color:#1a3d20;line-height:1.8;font-weight:500;">① 온도에 따라 기체의 부피가 달라지는 실생활 예를 한 가지 정해요.</div>
+            <div style="font-size:17px;color:#1a3d20;line-height:1.8;font-weight:500;">① 온도에 따라 기체의 부피가 달라지는 실생활 예를 한 가지 정해요.</div>
             <div style="font-size:17px;color:#1a3d20;line-height:1.8;font-weight:500;">② 캔바 매직 캔버스를 활용하여 온도와 기체 부피의 관계가 드러나도록 <strong>&#39;원인-결과-되돌리기&#39;</strong>의 3컷 만화로 표현해요.</div>
             <div style="font-size:17px;color:#1a3d20;line-height:1.8;font-weight:500;">③ 완성된 그림을 업로드한 뒤 <strong>&#39;3컷 완성 미리보기&#39;</strong> 버튼을 클릭해요.</div>
             <div style="font-size:17px;color:#1a3d20;line-height:1.8;font-weight:500;">④ <strong>완성된 만화를 사진으로 다운받아 패들렛에 올려요.</strong></div>
+          </div>
+        </div>
+
+        <!-- 활동 방법 팝업 모달 -->
+        <div id="act3-info-modal" onclick="if(event.target===this)this.style.display='none'"
+          style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
+          <div style="background:#fff;border-radius:24px;width:100%;max-width:780px;max-height:90vh;overflow-y:auto;padding:40px 44px;box-sizing:border-box;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);">
+            <!-- 닫기 버튼 -->
+            <button onclick="document.getElementById('act3-info-modal').style.display='none'"
+              style="position:absolute;top:16px;right:18px;background:#f3f4f6;border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#555;transition:background .15s;"
+              onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">✕</button>
+
+            <!-- 제목 -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
+              <span style="font-size:36px;">🔍</span>
+              <div>
+                <div style="font-size:13px;color:#6b9e74;font-weight:600;letter-spacing:.05em;margin-bottom:4px;">활동 3 안내</div>
+                <div style="font-size:22px;font-weight:700;color:#143d1e;line-height:1.3;">📱 우리 주변에서는 어떻게 나타날까요?</div>
+              </div>
+            </div>
+
+            <!-- 활동 방법 1~4 -->
+            <div style="display:flex;flex-direction:column;gap:16px;">
+
+              <div style="display:flex;align-items:flex-start;gap:16px;background:#f0f7f1;border-radius:14px;padding:20px 24px;">
+                <div style="background:#143d1e;color:#fff;font-size:18px;font-weight:800;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">①</div>
+                <div style="font-size:18px;color:#1a3d20;line-height:1.8;font-weight:500;flex:1;">
+                  온도에 따라 기체의 부피가 달라지는 <strong>실생활 예를 한 가지</strong> 정해요.
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:flex-start;gap:16px;background:#f0f7f1;border-radius:14px;padding:20px 24px;">
+                <div style="background:#143d1e;color:#fff;font-size:18px;font-weight:800;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">②</div>
+                <div style="font-size:18px;color:#1a3d20;line-height:1.8;font-weight:500;flex:1;">
+                  캔바 매직 캔버스를 활용하여 온도와 기체 부피의 관계가 드러나도록<br>
+                  <strong style="color:#143d1e;background:#c5e0c8;padding:2px 8px;border-radius:6px;">'원인 - 결과 - 되돌리기'</strong>의 <strong>3컷 만화</strong>로 표현해요.
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:flex-start;gap:16px;background:#f0f7f1;border-radius:14px;padding:20px 24px;">
+                <div style="background:#143d1e;color:#fff;font-size:18px;font-weight:800;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">③</div>
+                <div style="font-size:18px;color:#1a3d20;line-height:1.8;font-weight:500;flex:1;">
+                  완성된 그림을 업로드한 뒤<br>
+                  <strong style="color:#143d1e;background:#c5e0c8;padding:2px 8px;border-radius:6px;">'3컷 완성 미리보기'</strong> 버튼을 클릭해요.
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:flex-start;gap:16px;background:#e6f4ea;border:2px solid #a3c4a8;border-radius:14px;padding:20px 24px;">
+                <div style="background:#2d7a3e;color:#fff;font-size:18px;font-weight:800;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">④</div>
+                <div style="font-size:18px;color:#1a3d20;line-height:1.8;font-weight:600;flex:1;">
+                  완성된 만화를 <strong style="color:#2d7a3e;">사진으로 다운받아 패들렛에 올려요.</strong> 📤
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 닫기 버튼 (하단) -->
+            <div style="display:flex;justify-content:center;margin-top:28px;">
+              <button onclick="document.getElementById('act3-info-modal').style.display='none'"
+                style="background:#143d1e;color:#fff;border:none;border-radius:12px;padding:14px 44px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                확인했어요 ✓
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1500,7 +1617,181 @@ function cdownloadModal() {
   </div><!-- /teacher-panel -->
 </div><!-- /teacher-overlay -->
 
+<!-- ══ 활동2 실험2 생각열기 팝업 ══ -->
+<div id="act2-think-modal" onclick="if(event.target===this)closeAct2ThinkModal()"
+  style="display:none;position:fixed;inset:0;z-index:9200;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#fffbe6;border:3px solid #f5c842;border-radius:24px;padding:36px 44px;max-width:860px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);max-height:90vh;overflow-y:auto;">
+    <button onclick="closeAct2ThinkModal()" style="position:absolute;top:16px;right:18px;background:#f5c842;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:20px;color:#3a2800;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:24px;font-weight:700;color:#3a2800;text-align:center;margin-bottom:20px;">💭 생각 열기</div>
+    <div style="font-size:22px;font-weight:700;color:#3a2800;text-align:center;margin-bottom:28px;">물 위에 양초를 세워두고 삼각플라스크로 덮으면 어떤 일이 생길까요?</div>
+    <svg width="100%" viewBox="0 0 460 280" xmlns="http://www.w3.org/2000/svg">
+      <line x1="230" y1="10" x2="230" y2="270" stroke="#d8d8d8" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <ellipse cx="115" cy="262" rx="100" ry="8" fill="#b09080" opacity="0.18"/>
+      <ellipse cx="115" cy="244" rx="100" ry="26" fill="#ecdcc8" stroke="#c8a880" stroke-width="1.5"/>
+      <ellipse cx="115" cy="236" rx="85" ry="19" fill="#c03040"/>
+      <ellipse cx="98" cy="230" rx="27" ry="5" fill="rgba(255,255,255,0.16)" transform="rotate(-8 98 230)"/>
+      <path d="M15 244 Q115 278 215 244 Q215 254 115 262 Q15 254 15 244Z" fill="#d8c0a8" stroke="#c0a080" stroke-width="1.5"/>
+      <rect x="101" y="148" width="28" height="90" rx="4" fill="#fff8e8" stroke="#e8d090" stroke-width="1.5"/>
+      <rect x="106" y="153" width="5" height="80" rx="3" fill="rgba(255,255,255,0.4)"/>
+      <ellipse cx="115" cy="148" rx="14" ry="4" fill="#fff0c0" stroke="#e8d090" stroke-width="1.5"/>
+      <line x1="115" y1="130" x2="115" y2="148" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+      <ellipse cx="115" cy="121" rx="7" ry="11" fill="#f5a020"><animate attributeName="rx" values="7;8;6;7" dur="0.5s" repeatCount="indefinite"/><animate attributeName="ry" values="11;13;10;11" dur="0.5s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="115" cy="124" rx="4" ry="7" fill="#ffe060"><animate attributeName="ry" values="7;9;6;7" dur="0.5s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="115" cy="127" rx="2" ry="3.5" fill="#fff5a0"/>
+      <text x="230" y="158" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#888">→</text>
+      <ellipse cx="345" cy="262" rx="100" ry="8" fill="#b09080" opacity="0.18"/>
+      <ellipse cx="345" cy="244" rx="100" ry="26" fill="#ecdcc8" stroke="#c8a880" stroke-width="1.5"/>
+      <ellipse cx="345" cy="236" rx="85" ry="19" fill="#c03040"/>
+      <ellipse cx="328" cy="230" rx="27" ry="5" fill="rgba(255,255,255,0.16)" transform="rotate(-8 328 230)"/>
+      <path d="M245 244 Q345 278 445 244 Q445 254 345 262 Q245 254 245 244Z" fill="#d8c0a8" stroke="#c0a080" stroke-width="1.5"/>
+      <rect x="331" y="148" width="28" height="90" rx="4" fill="#fff8e8" stroke="#e8d090" stroke-width="1.5"/>
+      <rect x="336" y="153" width="5" height="80" rx="3" fill="rgba(255,255,255,0.4)"/>
+      <ellipse cx="345" cy="148" rx="14" ry="4" fill="#fff0c0" stroke="#e8d090" stroke-width="1.5"/>
+      <line x1="345" y1="130" x2="345" y2="148" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+      <ellipse cx="345" cy="121" rx="7" ry="11" fill="#f5a020"><animate attributeName="rx" values="7;8;7;6;5;3;1;0;0;0;0;0;7" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.55;0.6;0.7;0.8;0.85;0.95;1" dur="4s" repeatCount="indefinite"/><animate attributeName="ry" values="11;13;11;9;7;5;2;0;0;0;0;0;11" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.55;0.6;0.7;0.8;0.85;0.95;1" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;1;1;1;1;0.5;0;0;0;0;0;1" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.55;0.6;0.7;0.8;0.85;0.95;1" dur="4s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="345" cy="124" rx="4" ry="7" fill="#ffe060"><animate attributeName="ry" values="7;9;7;5;3;1;0;0;0;0;0;0;7" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.55;0.6;0.7;0.8;0.85;0.95;1" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;1;1;1;0.5;0;0;0;0;0;0;1" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.55;0.6;0.7;0.8;0.85;0.95;1" dur="4s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="345" cy="127" rx="2" ry="3.5" fill="#fff5a0"><animate attributeName="opacity" values="1;1;1;1;0.5;0;0;0;0;0;0;0;1" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.55;0.6;0.7;0.8;0.85;0.95;1" dur="4s" repeatCount="indefinite"/></ellipse>
+      <path d="M345 128 Q342 118 345 108" stroke="#aaa" stroke-width="1.5" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0;0;0;0;0;0;0;1;1;1;0.3;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.65;0.7;0.75;0.8;0.85;1" dur="4s" repeatCount="indefinite"/></path>
+      <path d="M345 128 Q348 116 344 106" stroke="#bbb" stroke-width="1" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0;0;0;0;0;0;0;0;1;1;0.3;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.65;0.7;0.75;0.8;0.85;1" dur="4s" repeatCount="indefinite"/></path>
+      <path d="M328 238 Q327 228 325 215 Q314 172 272 120 Q256 98 255 68 L435 68 Q434 98 418 120 Q376 172 365 215 Q363 228 362 238" fill="rgba(195,228,248,0.32)" stroke="#50a0cc" stroke-width="2.2" stroke-linejoin="round"/>
+      <line x1="255" y1="68" x2="435" y2="68" stroke="#50a0cc" stroke-width="2.2"/>
+      <ellipse cx="345" cy="238" rx="17" ry="5" fill="rgba(185,220,244,0.55)" stroke="#50a0cc" stroke-width="1.8"/>
+      <path d="M263 88 Q267 150 263 210" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div style="background:#fff;border-radius:12px;border:1.5px solid #f0d050;padding:16px;text-align:center;margin-top:20px;">
+      <span style="font-size:18px;color:#3a2800;font-weight:600;">💬 생각을 친구들과 이야기해봐요!</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 활동2 실험2 실험방법 팝업 ══ -->
+<div id="act2-exp-modal" onclick="if(event.target===this)closeAct2ExpModal()"
+  style="display:none;position:fixed;inset:0;z-index:9200;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#fff;border-radius:24px;padding:36px 44px;max-width:780px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:24px;">
+    <button onclick="closeAct2ExpModal()" style="position:absolute;top:16px;right:18px;background:#e8f4e8;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:20px;color:#1a4a26;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:24px;font-weight:700;color:#1a3d20;text-align:center;">🔬 실험 방법</div>
+    <div style="background:#e8f5e8;border-radius:18px;border:2px solid #4a9e50;padding:28px 32px;display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;gap:16px;align-items:flex-start;"><span style="background:#1a4a26;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">1</span><span style="font-size:22px;color:#1a3d20;line-height:1.75;">비커에 물을 담고 식용 색소를 넣어 섞어 주세요.</span></div>
+      <div style="display:flex;gap:16px;align-items:flex-start;"><span style="background:#1a4a26;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">2</span><span style="font-size:22px;color:#1a3d20;line-height:1.75;">양초를 양초 꽂이에 끼운 후 플라스틱 접시 가운데에 놓아 주세요.</span></div>
+      <div style="display:flex;gap:16px;align-items:flex-start;"><span style="background:#1a4a26;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">3</span><span style="font-size:22px;color:#1a3d20;line-height:1.75;">양초 꽂이가 잠길 정도로 색소를 탄 물을 접시에 부어 주세요.</span></div>
+      <div style="display:flex;gap:16px;align-items:flex-start;"><span style="background:#1a4a26;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">4</span><span style="font-size:22px;color:#1a3d20;line-height:1.75;">선생님이 양초에 불을 붙여 주시면 삼각플라스크로 양초를 덮어 주세요.</span></div>
+      <div style="display:flex;gap:16px;align-items:flex-start;"><span style="background:#1a4a26;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">5</span><span style="font-size:22px;color:#1a3d20;line-height:1.75;">어떤 변화가 나타나는지 자세히 관찰해 보세요.</span></div>
+      <div style="display:flex;gap:16px;align-items:flex-start;"><span style="background:#1a4a26;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">6</span><span style="font-size:22px;color:#1a3d20;line-height:1.75;">왜 이런 변화가 생겼는지 그 까닭을 친구들과 이야기해 보세요.</span></div>
+    </div>
+    <div style="background:#fff0f2;border:2.5px solid #e8b0b8;border-radius:18px;padding:28px 32px;display:flex;flex-direction:column;gap:14px;">
+      <div style="font-size:26px;font-weight:700;color:#c02040;text-align:center;">🚨 꼭 읽어주세요! 🚨</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">1. 선생님이 양초에 불을 붙여 주시면 바로 삼각플라스크로 덮어 주세요.</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">2. 삼각플라스크가 뜨거우니 반드시 안전장갑을 끼고 만져요. 🧤</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">3. 실험 전 과정을 영상으로 촬영하여 모둠 패들렛에 올려요. 📹</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">4. 실험 기회는 단 한 번! 미리 촬영 준비를 하고 변화가 잘 보이도록 촬영해요. 🎬</div>
+    </div>
+  </div>
+</div>
+
 <script>
+function openAct2ThinkModal() { document.getElementById('act2-think-modal').style.display = 'flex'; }
+function closeAct2ThinkModal() { document.getElementById('act2-think-modal').style.display = 'none'; }
+function openAct2ExpModal() { document.getElementById('act2-exp-modal').style.display = 'flex'; }
+function closeAct2ExpModal() { document.getElementById('act2-exp-modal').style.display = 'none'; }
+</script>
+
+<!-- ══ 활동1 생각열기 팝업 ══ -->
+<div id="act1-think-modal" onclick="if(event.target===this)closeAct1ThinkModal()"
+  style="display:none;position:fixed;inset:0;z-index:9200;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#fff8f0;border:3px solid #f0c080;border-radius:24px;padding:36px 44px;max-width:800px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);max-height:90vh;overflow-y:auto;">
+    <button onclick="closeAct1ThinkModal()" style="position:absolute;top:16px;right:18px;background:#f0c080;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:20px;color:#7a4000;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:22px;font-weight:700;color:#1e4d2a;text-align:center;margin-bottom:24px;">☁️ 생각 열기 💭</div>
+    <div style="font-size:22px;font-weight:700;color:#1e4d2a;text-align:center;margin-bottom:28px;">풍선을 씌운 캔을 따뜻한 물에 넣으면 어떤 변화가 나타날까요?</div>
+    <!-- 애니메이션 일러스트 (확대) -->
+    <div style="display:flex;justify-content:center;align-items:center;gap:40px;padding:12px 0 28px;">
+      <!-- 처음 상태 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <span style="font-size:15px;color:#7a6000;font-weight:600;">처음 상태</span>
+        <svg width="160" height="270" viewBox="0 0 64 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="38" width="36" height="58" rx="4" fill="#c8d8e8" stroke="#90a8c0" stroke-width="1.5"/>
+          <rect x="18" y="42" width="8" height="48" rx="3" fill="rgba(255,255,255,0.3)"/>
+          <ellipse cx="32" cy="38" rx="18" ry="5" fill="#b0c8e0" stroke="#90a8c0" stroke-width="1.5"/>
+          <ellipse cx="32" cy="96" rx="18" ry="5" fill="#a0b8d0"/>
+          <rect x="20" y="28" width="24" height="12" rx="3" fill="#b8c8d8" stroke="#90a8c0" stroke-width="1"/>
+          <ellipse cx="32" cy="28" rx="12" ry="4" fill="#a8b8d0"/>
+          <ellipse cx="32" cy="20" rx="11" ry="8" fill="#e05060" stroke="#c03050" stroke-width="1.5"/>
+          <ellipse cx="27" cy="16" rx="4" ry="3" fill="rgba(255,255,255,0.3)" transform="rotate(-20 27 16)"/>
+          <rect x="30" y="27" width="4" height="4" rx="1" fill="#c03050"/>
+        </svg>
+      </div>
+      <div style="font-size:36px;color:#e07a28;font-weight:700;">→</div>
+      <!-- 따뜻한 물 애니메이션 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <span style="font-size:15px;color:#7a6000;font-weight:600;">따뜻한 물에 넣으면?</span>
+        <svg width="260" height="270" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 48 L20 105 L80 105 L85 48 Z" fill="#d8f0f8" stroke="#80c0d8" stroke-width="1.5" opacity="0.85"/>
+          <path d="M17 70 L20 105 L80 105 L83 70 Z" fill="#74c0f0" opacity="0.45"/>
+          <line x1="20" y1="78" x2="28" y2="78" stroke="#60a8c8" stroke-width="1" opacity="0.7"/>
+          <line x1="20" y1="90" x2="28" y2="90" stroke="#60a8c8" stroke-width="1" opacity="0.7"/>
+          <path d="M30 46 Q33 38 30 30" stroke="#f09060" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="1;0.1;1" dur="1.6s" repeatCount="indefinite"/></path>
+          <path d="M50 46 Q53 36 50 26" stroke="#f09060" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/></path>
+          <path d="M68 46 Q71 38 68 30" stroke="#f09060" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.8s" repeatCount="indefinite"/></path>
+          <rect x="34" y="52" width="32" height="50" rx="4" fill="#c8d8e8" stroke="#90a8c0" stroke-width="1.5"/>
+          <rect x="38" y="56" width="7" height="42" rx="3" fill="rgba(255,255,255,0.3)"/>
+          <ellipse cx="50" cy="52" rx="16" ry="4.5" fill="#b0c8e0" stroke="#90a8c0" stroke-width="1.5"/>
+          <rect x="40" y="44" width="20" height="10" rx="3" fill="#b8c8d8" stroke="#90a8c0" stroke-width="1"/>
+          <ellipse cx="50" cy="44" rx="10" ry="3.5" fill="#a8b8d0"/>
+          <ellipse cx="50" cy="32" rx="13" ry="10" fill="#e05060" stroke="#c03050" stroke-width="1.5">
+            <animate attributeName="rx" values="13;16;13" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="ry" values="10;13;10" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="44" cy="27" rx="4" ry="3" fill="rgba(255,255,255,0.3)" transform="rotate(-20 44 27)"/>
+          <text x="50" y="36" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">?</text>
+          <rect x="48" y="41" width="4" height="4" rx="1" fill="#c03050"/>
+        </svg>
+      </div>
+    </div>
+    <!-- 선택지 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#fff;border:2px solid #e0e0e0;border-radius:14px;padding:16px 20px;font-size:20px;font-weight:600;color:#333;">① 풍선이 커진다</div>
+      <div style="background:#fff;border:2px solid #e0e0e0;border-radius:14px;padding:16px 20px;font-size:20px;font-weight:600;color:#333;">② 풍선이 작아진다</div>
+      <div style="background:#fff;border:2px solid #e0e0e0;border-radius:14px;padding:16px 20px;font-size:20px;font-weight:600;color:#333;">③ 그대로다</div>
+      <div style="background:#fff;border:2px solid #e0e0e0;border-radius:14px;padding:16px 20px;font-size:20px;font-weight:600;color:#333;">④ 기타</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 활동1 실험방법 팝업 ══ -->
+<div id="act1-exp-modal" onclick="if(event.target===this)closeAct1ExpModal()"
+  style="display:none;position:fixed;inset:0;z-index:9200;background:rgba(0,0,0,0.65);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#fff;border-radius:24px;padding:36px 44px;max-width:780px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.35);max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:24px;">
+    <button onclick="closeAct1ExpModal()" style="position:absolute;top:16px;right:18px;background:#e8f4e8;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:20px;color:#1a4a26;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:24px;font-weight:700;color:#1a3d20;text-align:center;">🔬 실험 방법</div>
+    <!-- 실험 단계 -->
+    <div style="background:#fff0d8;border-radius:18px;border:2px solid #e07a28;padding:28px 32px;display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="background:#e07a28;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">1</span>
+        <span style="font-size:24px;color:#1a3d20;line-height:1.75;">알루미늄 캔 입구에 풍선을 씌워요.</span>
+      </div>
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="background:#e07a28;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">2</span>
+        <span style="font-size:24px;color:#1a3d20;line-height:1.75;">풍선을 씌운 캔을 따뜻한 물이 든 비커에 넣고 풍선의 변화를 관찰해요.</span>
+      </div>
+      <div style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="background:#e07a28;color:#fff;font-size:18px;font-weight:700;padding:5px 14px;border-radius:20px;flex-shrink:0;margin-top:2px;">3</span>
+        <span style="font-size:24px;color:#1a3d20;line-height:1.75;">따뜻한 물에 넣었던 캔을 차가운 물이 든 비커에 넣고 풍선의 변화를 관찰해요.</span>
+      </div>
+    </div>
+    <!-- 꼭 읽어주세요 -->
+    <div style="background:#fff0f2;border:2.5px solid #e8b0b8;border-radius:18px;padding:28px 32px;display:flex;flex-direction:column;gap:14px;">
+      <div style="font-size:26px;font-weight:700;color:#c02040;text-align:center;">🚨 꼭 읽어주세요! 🚨</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">1. 뜨거운 물을 사용할 때 화상에 주의해요! 꼭 안전장갑을 끼고 실험해요! 🔥</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">2. 유리 기구가 깨지지 않도록 조심해요! 🧪</div>
+      <div style="font-size:22px;color:#4a1020;line-height:1.85;">3. 실험결과를 실험관찰 32쪽에 정리해요. 📒</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openAct1ThinkModal() { document.getElementById('act1-think-modal').style.display = 'flex'; }
+function closeAct1ThinkModal() { document.getElementById('act1-think-modal').style.display = 'none'; }
+function openAct1ExpModal() { document.getElementById('act1-exp-modal').style.display = 'flex'; }
+function closeAct1ExpModal() { document.getElementById('act1-exp-modal').style.display = 'none'; }
 function openComicModal2() {
   document.getElementById('comic-modal2-bg').style.display = 'flex';
 }
